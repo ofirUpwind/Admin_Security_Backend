@@ -88,3 +88,14 @@ class AuthDto:
         'email': fields.String(required=True, description='The email address'),
         'password': fields.String(required=True, description='The user password'),
     })
+
+
+# At the end of your user.py file or in a separate module, add the following:
+
+class QueryDto:
+    api = Namespace('query', description='Query execution related operations')
+    query = api.model('Query', {
+        'sql': fields.String(required=True, description='SQL query string'),
+        'clusterNames': fields.List(fields.String, required=True, description='List of cluster names'),
+        'format': fields.String(required=True, description='Format of the response data')
+    })

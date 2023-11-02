@@ -6,6 +6,14 @@ from flask_bcrypt import Bcrypt  # For hashing passwords
 from .. import db  # The SQLAlchemy database instance
 from sqlalchemy.exc import IntegrityError
 from uuid import uuid4
+import re
+
+
+def is_valid_upwind_email(email: str) -> bool:
+    """
+    Check if the email is in the desired format: <USERNAME>@upwind.io
+    """
+    return bool(re.match(r'^[a-zA-Z0-9._%-]+@upwind\.io$', email))
 
 
 class Auth:
@@ -94,7 +102,6 @@ class Auth:
     def get_logged_in_user(new_request):
         # get the auth token
         auth_token = new_request.headers.get('Authorization')
-        print(auth_token, "")
         if auth_token:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
@@ -125,6 +132,12 @@ class Auth:
     @staticmethod
     def sign_up_user(email: str, password: str, organization_id: str = None) -> Tuple[Dict[str, str], int]:
         # Check if the user already exists
+
+        if not is_valid_upwind_email(email):
+            return {
+                'status': 'fail',
+                'message': 'Email must be in the format <USERNAME>@upwind.io'
+            }, 400
         if User.query.filter_by(email=email).first():
             return {
                 'status': 'fail',

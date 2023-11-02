@@ -1,0 +1,22 @@
+# Ignore system and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore build artifacts and dependencies
+node_modules/
+dist/
+*.log
+
+# Ignore environment-specific files
+.env
+.env.local
+
+# Ignore user-specific files
+*.db
+*.sqlite
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db

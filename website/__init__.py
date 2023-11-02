@@ -32,7 +32,9 @@ def create_app():
         # Import and register the namespaces for your resources here
         from .controllers.auth import api as auth_ns
         from .controllers.user import api as user_ns
+        from .controllers.user import api1 as query_ns
         api.add_namespace(auth_ns, path='/auth')
         api.add_namespace(user_ns, path='/user')
+        api.add_namespace(query_ns, path='/query')
 
         return app

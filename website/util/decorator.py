@@ -11,7 +11,6 @@ def token_required(f) -> Callable:
     def decorated(*args, **kwargs):
 
         data, status = Auth.get_logged_in_user(request)
-        print(data, "fsfdsdfsdf")
         token = data.get('data')
 
         if not token:

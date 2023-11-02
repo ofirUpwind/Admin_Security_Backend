@@ -1,9 +1,16 @@
 import os
+from sqlalchemy import create_engine
 
+# Your secret key for JWT encoding/decoding
 key = "MyJwtLovelyKey1234567890!!1234567890"
-# create a config class for the Postgres connection
 
 
 class Config(object):
+    # Your PostgreSQL database URI
     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Ykpui9753$@localhost:5432/master'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    # Set to False to disable the tracking to save resources
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Create the SQLAlchemy engine instance
+    # You can add the echo=True parameter if you want to log all the statements executed by SQLAlchemy
+    ENGINE = create_engine(SQLALCHEMY_DATABASE_URI, echo=False)

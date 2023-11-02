@@ -5,6 +5,11 @@ from ..util.decorator import token_required, admin_token_required
 from ..models.user import UserDto
 from ..service.user_service import save_new_user, get_all_users, get_a_user
 from typing import Dict, Tuple
+from ..models.user import QueryDto
+from ..service.query_service import execute_query
+
+api1 = QueryDto.api
+_query = QueryDto.query
 
 CREATE_USER_KEY: str = "hiOFIR33"
 
@@ -70,3 +75,25 @@ class AdminTest(Resource):
             'status': 'success',
             'message': 'Admin token has been verified.'
         }, 200
+
+
+@api1.route('/query/')
+class QueryExecute(Resource):
+    @api1.doc('execute_query')
+    @token_required
+    @api1.expect(_query, validate=True)
+    def post(self) -> Tuple[Dict[str, str], int]:
+        """Execute a SQL query."""
+        data = request.json
+        sql_query = data.get('sql')
+        cluster_names = data.get('clusterNames')
+        response_format = data.get('format')
+
+        # Call the service function to execute the SQL query
+        response, status_code = execute_query(
+            sql_query, cluster_names, response_format)
+
+        return response, status_code
+
+
+
