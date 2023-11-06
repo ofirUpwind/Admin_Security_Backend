@@ -35,13 +35,17 @@ class User(db.Model):
     def check_password(self, password: str) -> bool:
         return flask_bcrypt.check_password_hash(self.password_hash, password)
 
-    @staticmethod
-    def encode_auth_token(user_id: int) -> bytes:
+    def encode_auth_token(self) -> bytes:
+        """
+        Generates the Auth Token
+        :return: string
+        """
         try:
             payload = {
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=5),
                 'iat': datetime.datetime.utcnow(),
-                'sub': user_id
+                'sub': self.public_id,
+                'email': self.email
             }
             return jwt.encode(
                 payload,
@@ -52,15 +56,18 @@ class User(db.Model):
             return e
 
     @staticmethod
-    def decode_auth_token(auth_token: str, return_preference: Optional[str] = None) -> Union[str, int]:
+    def decode_auth_token(auth_token: str) -> dict:
+        """
+        Decodes the auth token
+        :param auth_token:
+        :return: integer|string
+        """
         try:
             payload = jwt.decode(auth_token, key, algorithms=['HS256'])
-            # This should be replaced with actual check if using token blacklist
-            is_blacklisted_token = False
-            if is_blacklisted_token:
-                return 'Token blacklisted. Please log in again.'
-            else:
-                return payload['sub'] if return_preference is None else payload[return_preference]
+            return {
+                'public_id': payload['sub'],
+                'email': payload['email']
+            }
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again.'
         except jwt.InvalidTokenError:

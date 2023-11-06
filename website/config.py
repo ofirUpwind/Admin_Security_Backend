@@ -7,7 +7,7 @@ key = "MyJwtLovelyKey1234567890!!1234567890"
 
 class Config(object):
     # Your PostgreSQL database URI
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Ykpui9753$@localhost:5432/master'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Ykpui9753$@mypostgresdb.cq5n0l48wnd0.us-east-1.rds.amazonaws.com:5432/master'
     # Set to False to disable the tracking to save resources
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

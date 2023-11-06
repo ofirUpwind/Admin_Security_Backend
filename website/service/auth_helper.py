@@ -45,9 +45,7 @@ class Auth:
             # fetch the user data
             user = User.query.filter_by(email=data.get('email')).first()
             if user and user.check_password(data.get('password')):
-                auth_token = User.encode_auth_token(
-                    user.id)
-                print(auth_token)
+                auth_token = user.encode_auth_token()
                 if auth_token:
                     response_object = {
                         'status': 'success',
@@ -105,23 +103,33 @@ class Auth:
         if auth_token:
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
-                user = User.query.filter_by(id=resp).first()
-                response_object = {
-                    'status': 'success',
-                    'data': {
-                        'user_id': user.id,
-                        'email': user.email,
-                        'admin': user.admin,
-                        'organization_id': user.organization_id,
-                        'registered_on': str(user.registered_on)
+                # Assuming 'sub' contains user_id
+                user = User.query.filter_by(
+                    public_id=resp.get('public_id')).first()
+                if user:
+                    response_object = {
+                        'status': 'success',
+                        'data': {
+                            'user_id': user.id,
+                            'email': user.email,
+                            'admin': user.admin,
+                            'organization_id': user.organization_id,
+                            'registered_on': str(user.registered_on)
+                        }
                     }
+                    return response_object, 200
+                else:
+                    response_object = {
+                        'status': 'fail',
+                        'message': 'User does not exist.'
+                    }
+                    return response_object, 404
+            else:
+                response_object = {
+                    'status': 'fail',
+                    'message': resp  # This is the error message returned from decode_auth_token
                 }
-                return response_object, 200
-            response_object = {
-                'status': 'fail',
-                'message': resp
-            }
-            return response_object, 401
+                return response_object, 401
         else:
             response_object = {
                 'status': 'fail',
@@ -157,7 +165,7 @@ class Auth:
             db.session.commit()
 
             # Generate the auth token
-            auth_token = User.encode_auth_token(new_user.id)
+            auth_token = new_user.encode_auth_token()
             if isinstance(auth_token, bytes):
                 auth_token = auth_token.decode('utf-8')
 

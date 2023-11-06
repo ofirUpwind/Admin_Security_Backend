@@ -27,7 +27,6 @@ class UserList(Resource):
         """List all registered users"""
         # decode the token to get the organization_id
         organization_id = request.args.get('organization_id')
-        print(organization_id, "organization_id")
         return get_all_users(organization_id=organization_id)
 
     @api.expect(_user, validate=True)
@@ -94,6 +93,3 @@ class QueryExecute(Resource):
             sql_query, cluster_names, response_format)
 
         return response, status_code
-
-
-
