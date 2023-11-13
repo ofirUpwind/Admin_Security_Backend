@@ -27,7 +27,6 @@ def admin_token_required(f: Callable) -> Callable:
 
         data, status = Auth.get_logged_in_user(request)
         token = data.get('data')
-        print(token, "token")
 
         if not token:
             return data, status

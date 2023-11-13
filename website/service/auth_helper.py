@@ -52,7 +52,6 @@ class Auth:
                         'message': 'Successfully logged in.',
                         'Authorization': auth_token
                     }
-                    print(response_object)
                     return response_object, 200
             else:
                 response_object = {

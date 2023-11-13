@@ -53,7 +53,6 @@ def create_app():
                 if token:
                     # Assuming the token is a Bearer token
                     decoded_token = User.decode_auth_token(token)
-                    print(decoded_token, "decoded_token")
                     if isinstance(decoded_token, dict) and 'public_id' in decoded_token:
                         g.user_public_id = decoded_token['public_id']
                         print(g.user_public_id, "g.user_public_id")
