@@ -2,7 +2,7 @@ from flask import Flask, request, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_restx import Api
-from .config import Config
+from website.config import Config
 import json
 import datetime
 
