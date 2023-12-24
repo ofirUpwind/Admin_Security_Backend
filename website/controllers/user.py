@@ -7,6 +7,12 @@ from ..service.user_service import save_new_user, get_all_users, get_a_user
 from typing import Dict, Tuple
 from ..models.user import QueryDto
 from ..service.query_service import execute_query
+from ..service.get_customers_service import get_customers_service
+from ..service.cluster_version import get_Cluster
+from ..service.cluster_version import getMaxClusterVersion
+from ..service.cluster_version import getPinnedVersion
+from ..service.cluster_version import getFeatures
+
 
 api1 = QueryDto.api
 _query = QueryDto.query
@@ -91,5 +97,69 @@ class QueryExecute(Resource):
         # Call the service function to execute the SQL query
         response, status_code = execute_query(
             sql_query, cluster_names, response_format)
+
+        return response, status_code
+
+
+@api1.route('/submit-report/')
+class SubmitReport(Resource):
+    @api1.doc('submit_report')
+    @token_required
+    def post(self) -> Tuple[Dict[str, str], int]:
+        """Submit a report."""
+        data = request.json
+        # Extract relevant data from request
+        report_data = data.get('reportData')
+
+        # Call a service function to handle the report submission
+        response, status_code = submit_report_service(report_data)
+
+        return response, status_code
+
+
+@api1.route('/get-customers/')
+class GetCustomers(Resource):
+    @api1.doc('get_customers')
+    @token_required
+    def get(self) -> Tuple[Dict[str, str], int]:
+        """Get a list of customers."""
+        # Call a service function to get the list of customers
+        response, status_code = get_Cluster()
+
+        return response, status_code
+
+
+@api1.route('/get-clusterVersion/')
+class GetClusterVersion(Resource):
+    @api1.doc('get_clusterVersion')
+    @token_required
+    def get(self) -> Tuple[Dict[str, str], int]:
+        """Get a list of customers."""
+        # Call a service function to get the list of customers
+        response, status_code = getMaxClusterVersion()
+
+        return response, status_code
+
+
+@api1.route('/get-pinnedVersions/')
+class GetCustomers(Resource):
+    @api1.doc('get_pinnedVersions')
+    @token_required
+    def get(self) -> Tuple[Dict[str, str], int]:
+        """Get a list of customers."""
+        # Call a service function to get the list of customers
+        response, status_code = getPinnedVersion()
+
+        return response, status_code
+
+
+@api1.route('/get-features/')
+class GetFeatures(Resource):
+    @api1.doc('GetFeatures')
+    @token_required
+    def get(self) -> Tuple[Dict[str, str], int]:
+        """Get a list of features"""
+        # Call a service function to get the list of customers
+        response, status_code = getFeatures()
 
         return response, status_code

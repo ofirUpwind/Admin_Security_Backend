@@ -19,7 +19,6 @@ def execute_query(
     :param output_format: Desired format of the query results ('json' or 'csv').
     :return: Tuple of the result as a dictionary and an HTTP status code.
     """
-    print(output_format, cluster_names, sql)
     # Define the URL for the API endpoint
     api_url = 'http://monitoring-receiver.prod.internal:5000/query/'
 
@@ -39,14 +38,13 @@ def execute_query(
     try:
         # Make the POST request to the API
         response = requests.post(api_url, headers=headers, json=payload)
-        print("response", response)
+        print(response)
 
         # Check if the response status code is OK
         if response.status_code == 200:
             if output_format == 'csv':
                 # Check the content type of the response
                 content_type = response.headers.get('Content-Type', '')
-                print("content_type", content_type)
                 if content_type.startswith('text/csv'):
                     # Return the response content as CSV
                     csv_data = response.text
@@ -61,4 +59,5 @@ def execute_query(
 
     except requests.exceptions.RequestException as e:
         # Handle any exceptions during the API call
-        return {'error': 'API request exception', 'details': str(e)}, 500
+        return {'error':
+                'API request exception', 'details': str(e)}, 500
