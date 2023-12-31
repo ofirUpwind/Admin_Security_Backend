@@ -1,4 +1,27 @@
-Project Setup Instructions
+# Installation Guide
+
+## Prerequisites
+
+Before you begin, ensure you have Python 3 and pip installed on your macOS system. You can verify if they are installed by running the following commands in the terminal:
+
+```bash
+python3 --version
+
+
+If Python 3 is not installed, you can install it using Homebrew (a package manager for macOS). If you don't have Homebrew, install it first by running:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+Then, install Python 3:
+
+brew install python3
+
+This will also typically install pip alongside Python. If pip is not installed, you can install it by running:
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3 get-pip.py
+
+
 
 1. Navigate to the Desired Location on Your Computer:
 * Open a terminal or command prompt.
