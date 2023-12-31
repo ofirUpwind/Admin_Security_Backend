@@ -50,3 +50,14 @@ pip install -r requirements.txt
   After installation, you can use 'pip list' to see all the installed packages and ensure that everything required is now installed.
 
 Make sure to replace the placeholders like '[your desired location]' and '[project directory]' with the actual paths on your system.
+
+
+Add .env file
+
+The env file should look like that:
+DATABASE_URI_LOCAL={Password}
+JWT_SECRET_KEY={Jwt_key}
+DATABASE_URI_PROD={Prod_Url]
+IS_LOCALHOST=true
+
+Contact Ofir to get the .env
