@@ -6,6 +6,7 @@ This guide provides instructions on how to use the provided bash script to set u
 Prerequisites
 * macOS system
 * Terminal access
+* Visual Studio Code
 
 
 Steps to Run the Script
