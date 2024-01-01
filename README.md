@@ -1,63 +1,43 @@
 # Installation Guide
 
-## Prerequisites
 
-Before you begin, ensure you have Python 3 and pip installed on your macOS system. You can verify if they are installed by running the following commands in the terminal:
+This guide provides instructions on how to use the provided bash script to set up the Admin_Security project on a macOS system.
 
-```bash
-python3 --version
-
-
-If Python 3 is not installed, you can install it using Homebrew (a package manager for macOS). If you don't have Homebrew, install it first by running:
-
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-Then, install Python 3:
-
-brew install python3
-
-This will also typically install pip alongside Python. If pip is not installed, you can install it by running:
-
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3 get-pip.py
+Prerequisites
+* macOS system
+* Terminal access
 
 
+Steps to Run the Script
+1. Download the Script
+First, download the install_script.sh from here https://drive.google.com/drive/folders/11N_JisMBCJeUqDFxx42bJFvhDskJTa7Y
 
-1. Navigate to the Desired Location on Your Computer:
-* Open a terminal or command prompt.
-* Use the 'cd' command to navigate to the directory where you want to clone the repository
-cd [your desired location]
+2. Give Execute Permission
+Before running the script, you need to give it execute permissions. Open your terminal and navigate to the directory where the script is downloaded. Run the following command:
 
-  Replace '[your desired location]' with the path where you want the project to be.
+chmod +x install_script.sh
 
-2. Clone the Repository: Run the following command to clone the repository: git clone gh repo clone ofirUpwind/Admin_Security
+3. Run the Script
+Now, you can run the script. You need to provide the directory path as an argument where you want the repository to be cloned. Replace /path/to/directory with your desired path.
 
-3. Open the Project in Visual Studio Code:
-   * Once the repository is cloned, open the project in Visual Studio Code.
-   * You can do this either by navigating to the folder in Visual Studio Code or by running:
-
-code [project directory]
-
-Replace '[project directory]' with the path to the cloned repository.
-
-4. Install Required Packages:
-In Visual Studio Code, open the terminal.
-Run the following command to install all required packages:
-
-pip install -r requirements.txt
-
-5. verify installation 
-  After installation, you can use 'pip list' to see all the installed packages and ensure that everything required is now installed.
-
-Make sure to replace the placeholders like '[your desired location]' and '[project directory]' with the actual paths on your system.
+./install_script.sh /path/to/directory
 
 
-Add .env file
+The script will perform the following actions:
 
-The env file should look like that:
-DATABASE_URI_LOCAL={Password}
-JWT_SECRET_KEY={Jwt_key}
-DATABASE_URI_PROD={Prod_Url]
-IS_LOCALHOST=true
+Install Homebrew (if not already installed)
+Update Homebrew
+Install Python 3 and pip (if not already installed)
+Clone the 'ofirUpwind/Admin_Security' repository into the specified directory
+Open the project in Visual Studio Code
+Install required Python packages from 'requirements.txt'
+Verify the installation by listing the installed packages
+Prompt for input to create a '.env' file with DATABASE_URI_LOCAL, JWT_SECRET_KEY, and DATABASE_URI_PROD
 
-Contact Ofir to get the .env
+4. Follow the Prompts
+During the execution of the script, you will be prompted to enter the required values for the .env file. Enter each value as prompted.
+
+
+Troubleshooting:
+
+If you encounter any issues, contact Ofir:)
