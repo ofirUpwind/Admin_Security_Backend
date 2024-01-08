@@ -5,8 +5,6 @@ import json
 import csv
 from io import StringIO
 from collections import defaultdict
-import json
-from packaging import version
 import re
 
 
